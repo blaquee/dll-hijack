@@ -1,0 +1,5 @@
+*.vcxproj.user
+*.sln
+.vs
+Build
+src/DoPatch.cpp
