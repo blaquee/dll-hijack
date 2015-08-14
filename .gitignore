@@ -3,5 +3,5 @@
 *.opensdf
 .vs
 bin
-src/DoPatch.cpp
+main_dll/src/DoPatch.cpp
 *.aps
