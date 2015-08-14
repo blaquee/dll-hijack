@@ -69,7 +69,12 @@ void fixAPI(LPCSTR lpProcName, uAddr fnEntry)
 	if (fnEntry && fnDest)
 	{
 		DWORD oldProtect;
-		VirtualProtect(reinterpret_cast<void *>(fnEntry), 5, PAGE_EXECUTE_READWRITE, &oldProtect);
+#ifdef _WIN64
+#define SHELL_LENGTH 12
+#else
+#define SHELL_LENGTH 5
+#endif
+		VirtualProtect(reinterpret_cast<void *>(fnEntry), SHELL_LENGTH, PAGE_EXECUTE_READWRITE, &oldProtect);
 
 #ifdef _WIN64
 		// 00007FFD7709E251 | 48 B8 56 34 12 90 78 56 34 12 | mov rax, 1234567890123456 |
@@ -85,7 +90,7 @@ void fixAPI(LPCSTR lpProcName, uAddr fnEntry)
 		WriteByte(fnEntry, 0xE9);
 		WriteRelativeAddress(fnEntry + 1, reinterpret_cast<uAddr>(fnDest));
 #endif
-		VirtualProtect(reinterpret_cast<void *>(fnEntry), 5, oldProtect, &oldProtect);
+		VirtualProtect(reinterpret_cast<void *>(fnEntry), SHELL_LENGTH, oldProtect, &oldProtect);
 	}
 	else
 	{
