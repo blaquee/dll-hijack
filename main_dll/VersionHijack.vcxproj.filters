@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="src\DoPatch.cpp" />
+    <ClCompile Include="src\PatchUtil.cpp" />
+    <ClCompile Include="src\VersionLoader.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\DoPatch.h" />
+    <ClInclude Include="src\PatchUtil.h" />
+    <ClInclude Include="src\VersionLoader.h" />
+    <ClInclude Include="src\Common.h" />
+  </ItemGroup>
+</Project>

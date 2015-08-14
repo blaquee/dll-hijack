@@ -1,5 +1,7 @@
 *.vcxproj.user
-*.sln
+*.sdf
+*.opensdf
 .vs
-Build
+bin
 src/DoPatch.cpp
+*.aps
