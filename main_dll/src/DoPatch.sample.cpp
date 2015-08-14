@@ -1,10 +1,11 @@
+#include "Common.h"
 #include "DoPatch.h"
 #include "PatchUtil.h"
 
-uint hBase;
+uAddr hBase;
 
 void do_patch(HMODULE base) {
-	hBase = reinterpret_cast<uint>(base);
+	hBase = reinterpret_cast<uAddr>(base);
 	
 	// Your code here ..
 }
