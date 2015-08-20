@@ -45,7 +45,7 @@ void initLibrary() {
 	fixAPI("VerQueryValueW", reinterpret_cast<uAddr>(API_EXPORT::VerQueryValueW));
 #pragma endregion
 
-	do_patch(GetModuleHandle(NULL));
+	do_patch(GetModuleHandle(nullptr));
 }
 
 void exitLibrary() {
@@ -95,14 +95,14 @@ void fixAPI(LPCSTR lpProcName, uAddr fnEntry)
 	else
 	{
 		int size_a = sizeof(lpProcName) + 1;
-		int size_w = MultiByteToWideChar(CP_ACP, 0, lpProcName, size_a, NULL, 0);
+		int size_w = MultiByteToWideChar(CP_ACP, 0, lpProcName, size_a, nullptr, 0);
 		wchar_t *wProcName = new wchar_t[size_w];
 		MultiByteToWideChar(CP_ACP, 0, lpProcName, size_a, wProcName, size_w);
 
 		wchar_t *wMsgError = new wchar_t[MAX_PATH];
-		wsprintf(wMsgError, L"Can not find export function: %s.", wProcName);
+		wsprintf(wMsgError, L"Can not find export function %s.", wProcName);
 
-		MessageBox(NULL, wMsgError, L"API ERROR", MB_ICONERROR);
+		MessageBox(nullptr, wMsgError, L"API ERROR", MB_ICONERROR);
 		free(wProcName);
 		free(wMsgError);
 		ExitProcess(-1);
@@ -115,20 +115,20 @@ namespace API_EXPORT {
 	LPCWSTR MSG_CONTENT = L"Something happened";
 
 	// Create some padding for the function.
-	dll_export GetFileVersionInfoA(void) { MessageBox(NULL, MSG_CONTENT, MSG_TITLE, 0); }
-	dll_export GetFileVersionInfoByHandle(void) { MessageBox(NULL, MSG_CONTENT, MSG_TITLE, 1); }
-	dll_export GetFileVersionInfoExW(void) { MessageBox(NULL, MSG_CONTENT, MSG_TITLE, 2); }
-	dll_export GetFileVersionInfoSizeA(void) { MessageBox(NULL, MSG_CONTENT, MSG_TITLE, 3); }
-	dll_export GetFileVersionInfoSizeExW(void) { MessageBox(NULL, MSG_CONTENT, MSG_TITLE, 4); }
-	dll_export GetFileVersionInfoSizeW(void) { MessageBox(NULL, MSG_CONTENT, MSG_TITLE, 5); }
-	dll_export GetFileVersionInfoW(void) { MessageBox(NULL, MSG_CONTENT, MSG_TITLE, 6); }
-	dll_export VerFindFileA(void) { MessageBox(NULL, MSG_CONTENT, MSG_TITLE, 7); }
-	dll_export VerFindFileW(void) { MessageBox(NULL, MSG_CONTENT, MSG_TITLE, 8); }
-	dll_export VerInstallFileA(void) { MessageBox(NULL, MSG_CONTENT, MSG_TITLE, 9); }
-	dll_export VerInstallFileW(void) { MessageBox(NULL, MSG_CONTENT, MSG_TITLE, 10); }
-	dll_export VerLanguageNameA(void) { MessageBox(NULL, MSG_CONTENT, MSG_TITLE, 11); }
-	dll_export VerLanguageNameW(void) { MessageBox(NULL, MSG_CONTENT, MSG_TITLE, 12); }
-	dll_export VerQueryValueA(void) { MessageBox(NULL, MSG_CONTENT, MSG_TITLE, 13); }
-	dll_export VerQueryValueW(void) { MessageBox(NULL, MSG_CONTENT, MSG_TITLE, 14); }
+	dll_export GetFileVersionInfoA(void) { MessageBox(nullptr, MSG_CONTENT, MSG_TITLE, 0); }
+	dll_export GetFileVersionInfoByHandle(void) { MessageBox(nullptr, MSG_CONTENT, MSG_TITLE, 1); }
+	dll_export GetFileVersionInfoExW(void) { MessageBox(nullptr, MSG_CONTENT, MSG_TITLE, 2); }
+	dll_export GetFileVersionInfoSizeA(void) { MessageBox(nullptr, MSG_CONTENT, MSG_TITLE, 3); }
+	dll_export GetFileVersionInfoSizeExW(void) { MessageBox(nullptr, MSG_CONTENT, MSG_TITLE, 4); }
+	dll_export GetFileVersionInfoSizeW(void) { MessageBox(nullptr, MSG_CONTENT, MSG_TITLE, 5); }
+	dll_export GetFileVersionInfoW(void) { MessageBox(nullptr, MSG_CONTENT, MSG_TITLE, 6); }
+	dll_export VerFindFileA(void) { MessageBox(nullptr, MSG_CONTENT, MSG_TITLE, 7); }
+	dll_export VerFindFileW(void) { MessageBox(nullptr, MSG_CONTENT, MSG_TITLE, 8); }
+	dll_export VerInstallFileA(void) { MessageBox(nullptr, MSG_CONTENT, MSG_TITLE, 9); }
+	dll_export VerInstallFileW(void) { MessageBox(nullptr, MSG_CONTENT, MSG_TITLE, 10); }
+	dll_export VerLanguageNameA(void) { MessageBox(nullptr, MSG_CONTENT, MSG_TITLE, 11); }
+	dll_export VerLanguageNameW(void) { MessageBox(nullptr, MSG_CONTENT, MSG_TITLE, 12); }
+	dll_export VerQueryValueA(void) { MessageBox(nullptr, MSG_CONTENT, MSG_TITLE, 13); }
+	dll_export VerQueryValueW(void) { MessageBox(nullptr, MSG_CONTENT, MSG_TITLE, 14); }
 }
 #pragma endregion

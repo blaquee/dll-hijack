@@ -10,6 +10,9 @@
     <ClCompile Include="src\VersionLoader.cpp">
       <Filter>Source File</Filter>
     </ClCompile>
+    <ClCompile Include="src\SnR_Engine.cpp">
+      <Filter>Source File</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Common.h">
@@ -22,6 +25,9 @@
       <Filter>Header File</Filter>
     </ClInclude>
     <ClInclude Include="src\VersionLoader.h">
+      <Filter>Header File</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SnR_Engine.h">
       <Filter>Header File</Filter>
     </ClInclude>
   </ItemGroup>

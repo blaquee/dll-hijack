@@ -141,12 +141,14 @@
   <ItemGroup>
     <ClCompile Include="src\DoPatch.cpp" />
     <ClCompile Include="src\PatchUtil.cpp" />
+    <ClCompile Include="src\SnR_Engine.cpp" />
     <ClCompile Include="src\VersionLoader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Common.h" />
     <ClInclude Include="src\DoPatch.h" />
     <ClInclude Include="src\PatchUtil.h" />
+    <ClInclude Include="src\SnR_Engine.h" />
     <ClInclude Include="src\VersionLoader.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

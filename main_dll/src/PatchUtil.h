@@ -2,7 +2,11 @@
 #include "Common.h"
 
 void WriteRelativeAddress(uAddr address, uAddr content);
+
+#ifndef _WIN64
 void WriteRelativeAddress32(u32 address, u32 content);
+#endif
+
 uAddr ReadRelativeAddress_x86_jmp(uAddr address);
 
 template<typename T>

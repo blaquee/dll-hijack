@@ -5,10 +5,12 @@ void WriteRelativeAddress(uAddr address, uAddr content)
 	*reinterpret_cast<uAddr *>(address) = content - address - 4;
 }
 
+#ifndef _WIN64
 void WriteRelativeAddress32(u32 address, u32 content)
 {
 	*reinterpret_cast<u32 *>(address) = content - address - 4;
 }
+#endif
 
 uAddr ReadRelativeAddress_x86_jmp(uAddr address)
 {
