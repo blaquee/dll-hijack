@@ -1,7 +1,26 @@
 #include "SnR_Engine.h"
-#include <forward_list>
 
 namespace SnR_Engine {
+	uint GetModuleSize(HMODULE hModule)
+	{
+		HANDLE hSnap;
+		MODULEENTRY32 mod;
+		hSnap = CreateToolhelp32Snapshot(TH32CS_SNAPMODULE, GetCurrentProcessId());
+		mod.dwSize = sizeof(MODULEENTRY32);
+		if (Module32First(hSnap, &mod)) {
+			do
+			{
+				if (mod.hModule == hModule)
+				{
+					CloseHandle(hSnap);
+					return uint(mod.modBaseSize);
+				}
+			} while (Module32Next(hSnap, &mod));
+		}
+		CloseHandle(hSnap);
+		return 0;
+	}
+
 	SnR_Engine::SnR_Engine()
 	{
 		init_module(GetModuleHandle(nullptr));
@@ -95,7 +114,6 @@ namespace SnR_Engine {
 				break;
 
 			case SearchMode_Search:
-				// ??????
 				len = *(lpRule++);
 				if (memcmp(src, lpRule, len) != 0)
 					return false;
@@ -130,11 +148,7 @@ namespace SnR_Engine {
 
 	void SnR_Engine::init_module(HMODULE hModule)
 	{
-		this->baseAddr = reinterpret_cast<uAddr>(hModule);
-		
-		MODULEINFO modInfo;
-		GetModuleInformation(reinterpret_cast<HANDLE>(-1), hModule, &modInfo, sizeof MODULEINFO);
-		this->dataSize = modInfo.SizeOfImage;
+		this->baseAddr = uAddr(hModule);
+		this->dataSize = GetModuleSize(hModule);
 	}
-
 }

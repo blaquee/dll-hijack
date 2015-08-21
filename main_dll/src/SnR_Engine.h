@@ -4,8 +4,9 @@
 #define UNICODE
 #endif
 #include <Windows.h>
-#include <Psapi.h>
 #include "Common.h"
+#include <TlHelp32.h>
+#include <forward_list>
 
 namespace SnR_Engine {
 	class SnR_Engine; // just tell the compiler to expect a class def
