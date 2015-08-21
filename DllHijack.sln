@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "VersionHijack", "main_dll\VersionHijack.vcxproj", "{626B1DEF-C9E3-450E-A081-815F4C4D9085}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DllHijack", "main_dll\DllHijack.vcxproj", "{626B1DEF-C9E3-450E-A081-815F4C4D9085}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "test_dll", "test_dll\test_dll.vcxproj", "{28C2BC89-4B3F-46EE-A75B-A7A123C327AF}"
 EndProject

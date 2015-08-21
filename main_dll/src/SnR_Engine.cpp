@@ -16,7 +16,11 @@ namespace SnR_Engine {
 	uint SnR_Engine::doSearchAndReplace(ubyte rule[], ubyte replacement[])
 	{
 #ifdef _DEBUG
+#ifdef _WIN64
 		printf("Search range[size: %d]: %016llx ~ %016llx\n", dataSize, baseAddr, baseAddr + dataSize);
+#else
+		printf("Search range[size: %d]: %08x ~ %08x\n", dataSize, baseAddr, baseAddr + dataSize);
+#endif
 #endif
 		uint count = 0;
 		ubyte *src = reinterpret_cast<ubyte *>(baseAddr);
@@ -38,7 +42,11 @@ namespace SnR_Engine {
 	void SnR_Engine::doReplace(ubyte *src, ubyte replacement[])
 	{
 #ifdef _DEBUG
+#ifdef _WIN64
 		printf("Apply Patch at %016llx\n", reinterpret_cast<uAddr>(src));
+#else
+		printf("Apply Patch at %08x\n", reinterpret_cast<uAddr>(src));
+#endif
 #endif
 
 		ubyte *lpReplc = replacement;
@@ -67,7 +75,7 @@ namespace SnR_Engine {
 
 			default:
 #ifdef _DEBUG
-				prtinf("Unexpected char: %c", *(lpReplc - 1));
+				printf("Unexpected char: %c", *(lpReplc - 1));
 #endif
 				return;
 			}
@@ -102,7 +110,7 @@ namespace SnR_Engine {
 
 			default:
 #ifdef _DEBUG
-				prtinf("Unexpected char: %c", *(lpRule - 1));
+				printf("Unexpected char: %c", *(lpRule - 1));
 #endif
 				return false;
 			}

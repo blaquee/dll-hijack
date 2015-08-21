@@ -1,4 +1,4 @@
-#include "VersionLoader.h"
+#include "DllLoader.h"
 
 BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved) {
 	switch (fdwReason) {

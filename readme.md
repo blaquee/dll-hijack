@@ -1,4 +1,4 @@
-# Version.dll Hijack Source Template
+# Dll Hijack Source Template
 
 This is a *template*. Copy `main_dll\src\DoPatch.sample.cpp` to `main_dll\src\DoPatch.cpp` and begin your coding there.
 

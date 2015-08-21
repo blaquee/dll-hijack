@@ -20,7 +20,7 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{626B1DEF-C9E3-450E-A081-815F4C4D9085}</ProjectGuid>
-    <RootNamespace>VersionHijack</RootNamespace>
+    <RootNamespace>DllHijack</RootNamespace>
     <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -120,7 +120,7 @@
       <GenerateDebugInformation>No</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <StripPrivateSymbols>VersionHijack</StripPrivateSymbols>
+      <StripPrivateSymbols>DllHijack</StripPrivateSymbols>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -142,14 +142,14 @@
     <ClCompile Include="src\DoPatch.cpp" />
     <ClCompile Include="src\PatchUtil.cpp" />
     <ClCompile Include="src\SnR_Engine.cpp" />
-    <ClCompile Include="src\VersionLoader.cpp" />
+    <ClCompile Include="src\DllLoader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Common.h" />
     <ClInclude Include="src\DoPatch.h" />
     <ClInclude Include="src\PatchUtil.h" />
     <ClInclude Include="src\SnR_Engine.h" />
-    <ClInclude Include="src\VersionLoader.h" />
+    <ClInclude Include="src\DllLoader.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

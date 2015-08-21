@@ -7,7 +7,7 @@
     <ClCompile Include="src\PatchUtil.cpp">
       <Filter>Source File</Filter>
     </ClCompile>
-    <ClCompile Include="src\VersionLoader.cpp">
+    <ClCompile Include="src\DllLoader.cpp">
       <Filter>Source File</Filter>
     </ClCompile>
     <ClCompile Include="src\SnR_Engine.cpp">
@@ -24,7 +24,7 @@
     <ClInclude Include="src\PatchUtil.h">
       <Filter>Header File</Filter>
     </ClInclude>
-    <ClInclude Include="src\VersionLoader.h">
+    <ClInclude Include="src\DllLoader.h">
       <Filter>Header File</Filter>
     </ClInclude>
     <ClInclude Include="src\SnR_Engine.h">
