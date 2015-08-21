@@ -1,4 +1,5 @@
 #include "SnR_Engine.h"
+#include <assert.h>
 
 namespace SnR_Engine {
 	uint GetModuleSize(HMODULE hModule)
@@ -32,18 +33,65 @@ namespace SnR_Engine {
 		// Do nothing :3
 	}
 
+	uint SnR_Engine::calcRuleSize(ubyte rule[])
+	{
+		ubyte *lpRule = rule;
+		uint len;
+		uint rSize = 0;
+
+		while (true)
+		{
+			switch (*(lpRule++))
+			{
+			case SearchMode_Skip:
+				rSize += *(lpRule++);
+				break;
+
+			case SearchMode_Search:
+			case SearchMode_Replace:
+				len = *(lpRule++);
+				rSize += len;
+				lpRule += len;
+				break;
+
+			case SearchMode_EOF:
+				return rSize;
+
+			default:
+#ifdef _DEBUG
+				printf("Unexpected char: %c\n", *(lpRule - 1));
+#endif
+				assert(true);
+				return 0;
+			}
+		}
+	}
+
 	uint SnR_Engine::doSearchAndReplace(ubyte rule[], ubyte replacement[])
 	{
-#ifdef _DEBUG
-#ifdef _WIN64
-		printf("Search range[size: %d]: %016llx ~ %016llx\n", dataSize, baseAddr, baseAddr + dataSize);
-#else
-		printf("Search range[size: %d]: %08x ~ %08x\n", dataSize, baseAddr, baseAddr + dataSize);
-#endif
-#endif
+		uint ruleSize = calcRuleSize(rule);
+		uint replSize = calcRuleSize(replacement);
+
+		assert(ruleSize);
+		assert(replSize);
+
+		if (!ruleSize || !replSize) {
+			return 0;
+		}
+
 		uint count = 0;
 		ubyte *src = reinterpret_cast<ubyte *>(baseAddr);
-		ubyte *eof = src + dataSize;
+		ubyte *eof = src + dataSize - max(ruleSize, replSize);
+#ifdef _DEBUG
+		printf("RuleSize: %d\t\tReplSize: %d\n", ruleSize, replSize);
+#ifdef _WIN64
+		printf("Search range[size: %d]: %016llx ~ %016llx\n",
+			dataSize - max(ruleSize, replSize), baseAddr, uint(eof));
+#else
+		printf("Search range[size: %d]: %08x ~ %08x\n",
+			dataSize - max(ruleSize, replSize), baseAddr, uint(eof));
+#endif
+#endif
 		while (src < eof)
 		{
 			if (checkRule(src, rule))
@@ -94,8 +142,9 @@ namespace SnR_Engine {
 
 			default:
 #ifdef _DEBUG
-				printf("Unexpected char: %c", *(lpReplc - 1));
+				printf("Unexpected char: %c\n", *(lpReplc - 1));
 #endif
+				assert(true);
 				return;
 			}
 		}
@@ -128,8 +177,9 @@ namespace SnR_Engine {
 
 			default:
 #ifdef _DEBUG
-				printf("Unexpected char: %c", *(lpRule - 1));
+				printf("Unexpected char: %c\n", *(lpRule - 1));
 #endif
+				assert(true);
 				return false;
 			}
 		}
