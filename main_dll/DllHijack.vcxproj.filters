@@ -30,6 +30,9 @@
     <ClInclude Include="src\SnR_Engine.h">
       <Filter>Header File</Filter>
     </ClInclude>
+    <ClInclude Include="src\_EXP_Control.h">
+      <Filter>Header File</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Header File">
