@@ -59,12 +59,82 @@ namespace SnR_Engine {
 
 			default:
 #ifdef _DEBUG
-				printf("Unexpected char: %c\n", *(lpRule - 1));
+				printf("Unexpected char: 0x%02x\n", *(lpRule - 1));
 #endif
 				assert(true);
 				return 0;
 			}
 		}
+	}
+
+	uint SnR_Engine::findNext(uint offset, ubyte rule[])
+	{
+		uint ruleSize = calcRuleSize(rule);
+
+		assert(ruleSize);
+
+		if (!ruleSize)
+			return 0;
+
+		ubyte *src = reinterpret_cast<ubyte *>(baseAddr);
+		ubyte *eof = src + dataSize - ruleSize;
+		src += offset;
+#ifdef _DEBUG
+		printf("RuleSize: %d\n", ruleSize);
+#ifdef _WIN64
+		printf("Search range[size: %d]: %016llx ~ %016llx\n",
+			dataSize - ruleSize, baseAddr, uint(eof));
+#else
+		printf("Search range[size: %d]: %08x ~ %08x\n",
+			dataSize - ruleSize, baseAddr, uint(eof));
+#endif
+#endif
+		while (src < eof)
+		{
+			if (checkRule(src, rule))
+			{
+				return uint(src - baseAddr);
+			}
+
+			src++;
+		}
+
+		return 0;
+	}
+
+	uint SnR_Engine::findPrev(uint offset, ubyte rule[])
+	{
+		uint ruleSize = calcRuleSize(rule);
+
+		assert(ruleSize);
+
+		if (!ruleSize)
+			return 0;
+
+		ubyte *src = reinterpret_cast<ubyte *>(baseAddr);
+		ubyte *eof = src + offset;
+
+#ifdef _DEBUG
+		printf("RuleSize: %d\n", ruleSize);
+#ifdef _WIN64
+		printf("Search range[size: %d]: %016llx ~ %016llx\n",
+			dataSize - ruleSize, baseAddr, uint(eof));
+#else
+		printf("Search range[size: %d]: %08x ~ %08x\n",
+			dataSize - ruleSize, baseAddr, uint(eof));
+#endif
+#endif
+		while (src < eof)
+		{
+			if (checkRule(eof, rule))
+			{
+				return uint(eof - baseAddr);
+			}
+
+			eof--;
+		}
+
+		return 0;
 	}
 
 	uint SnR_Engine::doSearchAndReplace(ubyte rule[], ubyte replacement[])
@@ -142,7 +212,7 @@ namespace SnR_Engine {
 
 			default:
 #ifdef _DEBUG
-				printf("Unexpected char: %c\n", *(lpReplc - 1));
+				printf("Unexpected char: 0x%02x\n", *(lpReplc - 1));
 #endif
 				assert(true);
 				return;
@@ -177,7 +247,7 @@ namespace SnR_Engine {
 
 			default:
 #ifdef _DEBUG
-				printf("Unexpected char: %c\n", *(lpRule - 1));
+				printf("Unexpected char: 0x%02x\n", *(lpRule - 1));
 #endif
 				assert(true);
 				return false;

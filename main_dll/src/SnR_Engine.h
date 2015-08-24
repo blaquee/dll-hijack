@@ -33,6 +33,8 @@ namespace SnR_Engine {
 		uint doSearchAndReplace(ubyte rule[], ubyte replacement[]);
 		void doReplace(ubyte *src, ubyte replacement[]);
 		bool checkRule(ubyte *src, ubyte rule[]);
+		uint findNext(uint offset, ubyte rule[]);
+		uint findPrev(uint offset, ubyte rule[]);
 
 		void setBufferSize(uint bufferSize)
 		{

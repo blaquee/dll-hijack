@@ -36,6 +36,11 @@ void WriteInt32(uAddr address, i32 value)
 	*reinterpret_cast<i32 *>(address) = value;
 }
 
+void WriteUInt32(uAddr address, u32 value)
+{
+	*reinterpret_cast<u32 *>(address) = value;
+}
+
 void WriteInt64(uAddr address, i64 value)
 {
 	*reinterpret_cast<i64 *>(address) = value;

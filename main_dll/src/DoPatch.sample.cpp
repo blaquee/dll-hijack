@@ -82,6 +82,8 @@ void do_patch(HMODULE base) {
 	ubyte patchData2[] = {
 		0x66
 	};
+
+	// Should trigger error
 	engine->doSearchAndReplace(patchSig2, patchData2);
 
 	// Continue patching / clean up ..

@@ -14,4 +14,5 @@ void WriteMemory(uAddr, T);
 
 void WriteUInt16(uAddr address, u16 value);
 void WriteInt32(uAddr address, i32 value);
+void WriteUInt32(uAddr address, u32 value);
 void WriteByte(uAddr address, ubyte value);
