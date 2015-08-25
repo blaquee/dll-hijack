@@ -9,12 +9,12 @@
 #include <forward_list>
 
 namespace SnR_Engine {
-	class SnR_Engine; // just tell the compiler to expect a class def
+	class SnR_Engine;
 
-	ubyte const SearchMode_Search  = '\x00';
-	ubyte const SearchMode_Skip    = '\x01';
-	ubyte const SearchMode_Replace = '\x02';
-	ubyte const SearchMode_EOF     = '\xFF';
+	ubyte const SearchMode_Search = 0x00;
+	ubyte const SearchMode_Skip = 0x01;
+	ubyte const SearchMode_Replace = 0x02;
+	ubyte const SearchMode_EOF = 0xFF;
 
 	class SnR_Engine
 	{
@@ -33,8 +33,8 @@ namespace SnR_Engine {
 		uint doSearchAndReplace(ubyte rule[], ubyte replacement[]);
 		void doReplace(ubyte *src, ubyte replacement[]);
 		bool checkRule(ubyte *src, ubyte rule[]);
-		uint findNext(uint offset, ubyte rule[]);
-		uint findPrev(uint offset, ubyte rule[]);
+		uAddr findNext(uAddr offset, ubyte rule[]);
+		uAddr findPrev(uAddr offset, ubyte rule[]);
 
 		void setBufferSize(uint bufferSize)
 		{

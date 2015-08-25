@@ -27,6 +27,7 @@ void do_patch(HMODULE base) {
 	// Method 1:
 	// Just write some random stuff to target memory.
 	WriteInt32(uBase + 0xcafe, 0xdeadbeaf);
+	WriteToMemory(uBase + 0xcafe, uAddr(0xdeadbeaf));
 
 	// Method 2:
 	// Use search and replace engine

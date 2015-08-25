@@ -67,7 +67,7 @@ namespace SnR_Engine {
 		}
 	}
 
-	uint SnR_Engine::findNext(uint offset, ubyte rule[])
+	uAddr SnR_Engine::findNext(uAddr offset, ubyte rule[])
 	{
 		uint ruleSize = calcRuleSize(rule);
 
@@ -83,7 +83,7 @@ namespace SnR_Engine {
 		printf("RuleSize: %d\n", ruleSize);
 #ifdef _WIN64
 		printf("Search range[size: %d]: %016llx ~ %016llx\n",
-			dataSize - ruleSize, baseAddr, uint(eof));
+			dataSize - ruleSize, baseAddr, uAddr(eof));
 #else
 		printf("Search range[size: %d]: %08x ~ %08x\n",
 			dataSize - ruleSize, baseAddr, uint(eof));
@@ -93,7 +93,7 @@ namespace SnR_Engine {
 		{
 			if (checkRule(src, rule))
 			{
-				return uint(src - baseAddr);
+				return uAddr(src - baseAddr);
 			}
 
 			src++;
@@ -102,7 +102,7 @@ namespace SnR_Engine {
 		return 0;
 	}
 
-	uint SnR_Engine::findPrev(uint offset, ubyte rule[])
+	uAddr SnR_Engine::findPrev(uAddr offset, ubyte rule[])
 	{
 		uint ruleSize = calcRuleSize(rule);
 
@@ -118,7 +118,7 @@ namespace SnR_Engine {
 		printf("RuleSize: %d\n", ruleSize);
 #ifdef _WIN64
 		printf("Search range[size: %d]: %016llx ~ %016llx\n",
-			dataSize - ruleSize, baseAddr, uint(eof));
+			dataSize - ruleSize, baseAddr, uAddr(eof));
 #else
 		printf("Search range[size: %d]: %08x ~ %08x\n",
 			dataSize - ruleSize, baseAddr, uint(eof));
@@ -128,7 +128,7 @@ namespace SnR_Engine {
 		{
 			if (checkRule(eof, rule))
 			{
-				return uint(eof - baseAddr);
+				return uAddr(eof - baseAddr);
 			}
 
 			eof--;
@@ -156,7 +156,7 @@ namespace SnR_Engine {
 		printf("RuleSize: %d\t\tReplSize: %d\n", ruleSize, replSize);
 #ifdef _WIN64
 		printf("Search range[size: %d]: %016llx ~ %016llx\n",
-			dataSize - max(ruleSize, replSize), baseAddr, uint(eof));
+			dataSize - max(ruleSize, replSize), baseAddr, uAddr(eof));
 #else
 		printf("Search range[size: %d]: %08x ~ %08x\n",
 			dataSize - max(ruleSize, replSize), baseAddr, uint(eof));
