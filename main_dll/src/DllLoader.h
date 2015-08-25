@@ -38,6 +38,7 @@ namespace API_EXPORT
 #endif
 
 #ifdef __EXP_LPK
+	dll_export LpkDllInitialize(void);
 	dll_export LpkDrawTextEx(void);
 	dll_export LpkEditControl(void);
 	dll_export LpkExtTextOut(void);

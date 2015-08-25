@@ -88,6 +88,7 @@ void initLibrary() {
 #ifdef __EXP_LPK
 	if (wcscmp(szDllName, L"lpk.dll") == 0)
 	{
+		fixAPI("LpkDllInitialize", uAddr(API_EXPORT::LpkDllInitialize));
 		fixAPI("LpkDrawTextEx", uAddr(API_EXPORT::LpkDrawTextEx));
 		fixAPI("LpkEditControl", uAddr(API_EXPORT::LpkEditControl));
 		fixAPI("LpkExtTextOut", uAddr(API_EXPORT::LpkExtTextOut));
@@ -403,6 +404,7 @@ namespace API_EXPORT {
 	dll_export LpkTabbedTextOut(void) { Sleep(27); }
 	dll_export LpkUseGDIWidthCache(void) { Sleep(28); }
 	dll_export ftsWordBreak(void) { Sleep(29); }
+	dll_export LpkDllInitialize(void) { Sleep(30); };
 #endif
 
 #ifdef __EXP_WINMM
