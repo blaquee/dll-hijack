@@ -85,6 +85,22 @@ void initLibrary() {
 	}
 #endif
 
+#ifdef __EXP_LPK
+	if (wcscmp(szDllName, L"lpk.dll") == 0)
+	{
+		fixAPI("LpkDrawTextEx", uAddr(API_EXPORT::LpkDrawTextEx));
+		fixAPI("LpkEditControl", uAddr(API_EXPORT::LpkEditControl));
+		fixAPI("LpkExtTextOut", uAddr(API_EXPORT::LpkExtTextOut));
+		fixAPI("LpkGetCharacterPlacement", uAddr(API_EXPORT::LpkGetCharacterPlacement));
+		fixAPI("LpkGetTextExtentExPoint", uAddr(API_EXPORT::LpkGetTextExtentExPoint));
+		fixAPI("LpkInitialize", uAddr(API_EXPORT::LpkInitialize));
+		fixAPI("LpkPSMTextOut", uAddr(API_EXPORT::LpkPSMTextOut));
+		fixAPI("LpkTabbedTextOut", uAddr(API_EXPORT::LpkTabbedTextOut));
+		fixAPI("LpkUseGDIWidthCache", uAddr(API_EXPORT::LpkUseGDIWidthCache));
+		fixAPI("ftsWordBreak", uAddr(API_EXPORT::ftsWordBreak));
+	}
+#endif
+
 #ifdef __EXP_WINMM
 	if (wcscmp(szDllName, L"winmm.dll") == 0)
 	{
@@ -374,6 +390,19 @@ namespace API_EXPORT {
 	dll_export VerLanguageNameW(void) { Sleep(13); }
 	dll_export VerQueryValueA(void) { Sleep(14); }
 	dll_export VerQueryValueW(void) { Sleep(15); }
+#endif
+
+#ifdef __EXP_LPK
+	dll_export LpkDrawTextEx(void) { Sleep(20); }
+	dll_export LpkEditControl(void) { Sleep(21); }
+	dll_export LpkExtTextOut(void) { Sleep(22); }
+	dll_export LpkGetCharacterPlacement(void) { Sleep(23); }
+	dll_export LpkGetTextExtentExPoint(void) { Sleep(24); }
+	dll_export LpkInitialize(void) { Sleep(25); }
+	dll_export LpkPSMTextOut(void) { Sleep(26); }
+	dll_export LpkTabbedTextOut(void) { Sleep(27); }
+	dll_export LpkUseGDIWidthCache(void) { Sleep(28); }
+	dll_export ftsWordBreak(void) { Sleep(29); }
 #endif
 
 #ifdef __EXP_WINMM

@@ -37,6 +37,19 @@ namespace API_EXPORT
 	dll_export VerQueryValueW(void);
 #endif
 
+#ifdef __EXP_LPK
+	dll_export LpkDrawTextEx(void);
+	dll_export LpkEditControl(void);
+	dll_export LpkExtTextOut(void);
+	dll_export LpkGetCharacterPlacement(void);
+	dll_export LpkGetTextExtentExPoint(void);
+	dll_export LpkInitialize(void);
+	dll_export LpkPSMTextOut(void);
+	dll_export LpkTabbedTextOut(void);
+	dll_export LpkUseGDIWidthCache(void);
+	dll_export ftsWordBreak(void);
+#endif
+
 #ifdef __EXP_WINMM
 	#ifdef PlaySound
 		#ifndef __BAK__PlaySound
