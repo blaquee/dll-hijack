@@ -1,6 +1,7 @@
 #pragma once
 #include "Common.h"
 
+uAddr ReadRelativeAddress(uAddr address);
 void WriteRelativeAddress(uAddr address, uAddr content);
 
 template<typename T>

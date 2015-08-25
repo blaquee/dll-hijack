@@ -308,7 +308,7 @@ void fixAPI(LPCSTR lpProcName, uAddr fnEntry)
 	// Where as in RELEASE mode, it will just pass the *real* address
 	// to this function.
 #if defined(_WIN64) && defined(_DEBUG)
-	fnEntry = ReadRelativeAddress_x86_jmp(fnEntry);
+	fnEntry = ReadRelativeAddress(fnEntry + 1);
 #endif
 
 	FARPROC fnDest = GetProcAddress(hDll, lpProcName);
@@ -326,11 +326,11 @@ void fixAPI(LPCSTR lpProcName, uAddr fnEntry)
 		// 00007FFD7709E251 | 48 B8 56 34 12 90 78 56 34 12 | mov rax, 1234567890123456 |
 		// 00007FFD7709E25B | FF E0 | jmp rax |
 		
-		WriteUInt16(fnEntry, 0xB848);
+		WriteUShortRaw(fnEntry, 0xB848);
 		*reinterpret_cast<FARPROC *>(fnEntry + 2) = fnDest;
 
 		// jmp rax
-		WriteUInt16(fnEntry + 10, 0xE0FF);
+		WriteUShortRaw(fnEntry + 10, 0xE0FF);
 #else
 		// 773E3D66 | E9 0D 19 F6 9A | jmp 12345678 |
 		WriteByte(fnEntry, 0xE9);
