@@ -3,19 +3,36 @@
 
 void WriteRelativeAddress(uAddr address, uAddr content);
 
-#ifndef _WIN64
-void WriteRelativeAddress32(u32 address, u32 content);
-#endif
-
-uAddr ReadRelativeAddress_x86_jmp(uAddr address);
+template<typename T>
+void WriteMem(uAddr address, T value)
+{
+	DWORD oldProtect;
+	VirtualProtect(LPVOID(address), sizeof T, PAGE_EXECUTE_READWRITE, &oldProtect);
+	*reinterpret_cast<T *>(address) = value;
+	VirtualProtect(LPVOID(address), sizeof T, oldProtect, &oldProtect);
+}
 
 template<typename T>
-void WriteMem(uAddr, T);
+void WriteMemRaw(uAddr address, T value)
+{
+	*reinterpret_cast<T *>(address) = value;
+}
 
-template<typename T>
-void WriteMemRaw(uAddr address, T value);
+#define WriteInt(address, value)  WriteMem(address, int(value))
+#define WriteUInt(address, value)  WriteMem(address, uint(value))
+#define WriteUAddr(address, value)  WriteMem(address, uAddr(value))
 
-void WriteUInt16(uAddr address, u16 value);
-void WriteInt32(uAddr address, i32 value);
-void WriteUInt32(uAddr address, u32 value);
-void WriteByte(uAddr address, ubyte value);
+#define WriteShort(address, value)   WriteMem(address, short(value))
+#define WriteUShort(address, value)  WriteMem(address, ushort(value))
+
+#define WriteByte(address, value)  WriteMem(address, byte(value))
+
+
+#define WriteIntRaw(address, value)  WriteMemRaw(address, int(value))
+#define WriteUIntRaw(address, value)  WriteMemRaw(address, uint(value))
+#define WriteUAddrRaw(address, value)  WriteMemRaw(address, uAddr(value))
+
+#define WriteShortRaw(address, value)   WriteMemRaw(address, short(value))
+#define WriteUShortRaw(address, value)  WriteMemRaw(address, ushort(value))
+
+#define WriteByteRaw(address, value)  WriteMemRaw(address, byte(value))
