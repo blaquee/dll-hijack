@@ -6,6 +6,7 @@
 #include "DoPatch.h"
 
 #define dll_export extern "C" __declspec(dllexport) void __cdecl
+#define var_export extern "C" __declspec(dllexport)
 
 BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved);
 
@@ -40,7 +41,7 @@ namespace API_EXPORT
 #ifdef __EXP_LPK
 	dll_export LpkDllInitialize(void);
 	dll_export LpkDrawTextEx(void);
-	dll_export LpkEditControl(void);
+	var_export VOID(*LpkEditControl[14])();
 	dll_export LpkExtTextOut(void);
 	dll_export LpkGetCharacterPlacement(void);
 	dll_export LpkGetTextExtentExPoint(void);

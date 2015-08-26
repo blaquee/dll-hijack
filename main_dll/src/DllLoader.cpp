@@ -90,7 +90,12 @@ void initLibrary() {
 	{
 		fixAPI("LpkDllInitialize", uAddr(API_EXPORT::LpkDllInitialize));
 		fixAPI("LpkDrawTextEx", uAddr(API_EXPORT::LpkDrawTextEx));
-		fixAPI("LpkEditControl", uAddr(API_EXPORT::LpkEditControl));
+
+		memcpy(API_EXPORT::LpkEditControl, 
+			GetProcAddress(hDll, "LpkEditControl"),
+			sizeof(API_EXPORT::LpkEditControl)
+		);
+
 		fixAPI("LpkExtTextOut", uAddr(API_EXPORT::LpkExtTextOut));
 		fixAPI("LpkGetCharacterPlacement", uAddr(API_EXPORT::LpkGetCharacterPlacement));
 		fixAPI("LpkGetTextExtentExPoint", uAddr(API_EXPORT::LpkGetTextExtentExPoint));
@@ -395,7 +400,7 @@ namespace API_EXPORT {
 
 #ifdef __EXP_LPK
 	dll_export LpkDrawTextEx(void) { Sleep(20); }
-	dll_export LpkEditControl(void) { Sleep(21); }
+	var_export VOID(*LpkEditControl[14])() = { 0 };
 	dll_export LpkExtTextOut(void) { Sleep(22); }
 	dll_export LpkGetCharacterPlacement(void) { Sleep(23); }
 	dll_export LpkGetTextExtentExPoint(void) { Sleep(24); }
