@@ -3,6 +3,8 @@
 #ifndef UNICODE
 #define UNICODE
 #endif
+#include <stdio.h>
+#include <assert.h>
 #include <Windows.h>
 
 typedef __int8  i8;

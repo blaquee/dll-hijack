@@ -6,7 +6,6 @@
 #include <Windows.h>
 #include "Common.h"
 #include <TlHelp32.h>
-#include <forward_list>
 
 namespace SnR_Engine {
 	class SnR_Engine;

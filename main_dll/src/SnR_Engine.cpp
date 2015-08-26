@@ -1,5 +1,4 @@
 #include "SnR_Engine.h"
-#include <assert.h>
 
 namespace SnR_Engine {
 	uint GetModuleSize(HMODULE hModule)

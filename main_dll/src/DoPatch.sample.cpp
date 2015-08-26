@@ -2,7 +2,6 @@
 #include "DoPatch.h"
 #include "PatchUtil.h"
 #include "SnR_Engine.h"
-#include <forward_list>
 
 uAddr uBase;
 

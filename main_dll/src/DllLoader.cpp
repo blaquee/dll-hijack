@@ -45,9 +45,9 @@ void initLibrary() {
 #else
 		MessageBox(nullptr, szErrorMsg, L"DLL ERROR", MB_ICONERROR);
 #endif
-		free(szErrorMsg);
-		free(szThisDllPath);
-		free(szTargetDll);
+		delete(szErrorMsg);
+		delete(szThisDllPath);
+		delete(szTargetDll);
 		ExitProcess(1);
 		return;
 	}
@@ -304,8 +304,8 @@ void initLibrary() {
 #endif
 #pragma endregion
 
-	free(szThisDllPath);
-	free(szTargetDll);
+	delete(szThisDllPath);
+	delete(szTargetDll);
 
 #ifdef _DEBUG
 	wprintf(L"Call to do_patch ..\n");
@@ -355,26 +355,17 @@ void fixAPI(LPCSTR lpProcName, uAddr fnEntry)
 		WriteUShortRaw(fnEntry + 10, 0xE0FF);
 #else
 		// 773E3D66 | E9 0D 19 F6 9A | jmp 12345678 |
-		WriteByte(fnEntry, 0xE9);
-		WriteRelativeAddress(fnEntry + 1, reinterpret_cast<uAddr>(fnDest));
+		WriteByteRaw(fnEntry, 0xE9);
+		WriteRelativeAddress(fnEntry + 1, uAddr(fnDest));
 #endif
 		VirtualProtect(reinterpret_cast<void *>(fnEntry), SHELL_LENGTH, oldProtect, &oldProtect);
 	}
+#ifdef _DEBUG
 	else
 	{
-		int size_a = sizeof(lpProcName) + 1;
-		int size_w = MultiByteToWideChar(CP_ACP, 0, lpProcName, size_a, nullptr, 0);
-		wchar_t *wProcName = new wchar_t[size_w];
-		MultiByteToWideChar(CP_ACP, 0, lpProcName, size_a, wProcName, size_w);
-
-		wchar_t *wMsgError = new wchar_t[MAX_PATH];
-		wsprintf(wMsgError, L"Can not find export function %s.", wProcName);
-
-		MessageBox(nullptr, wMsgError, L"API ERROR", MB_ICONERROR);
-		free(wProcName);
-		free(wMsgError);
-		ExitProcess(-1);
+		printf("Couldn't find export function %s: fnDest is null.\n", lpProcName);
 	}
+#endif
 }
 
 #pragma region API Export
