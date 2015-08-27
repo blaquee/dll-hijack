@@ -6,6 +6,7 @@
 #include <stdio.h>
 #include <assert.h>
 #include <Windows.h>
+#include <VersionHelpers.h>
 
 typedef __int8  i8;
 typedef __int16 i16;

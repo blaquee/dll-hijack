@@ -310,7 +310,21 @@ void initLibrary() {
 #ifdef _DEBUG
 	wprintf(L"Call to do_patch ..\n");
 #endif
+	
+#ifdef __XP_PATCH_IN_THREAD
+	HMODULE hBase = GetModuleHandle(nullptr);
+	if (IsWindowsVistaOrGreater())
+	{
+		do_patch(hBase);
+	} else
+	{
+		CreateThread(nullptr, 0,
+			LPTHREAD_START_ROUTINE(do_patch), hBase, 0, nullptr);
+	}
+#else
 	do_patch(GetModuleHandle(nullptr));
+#endif
+
 #ifdef _DEBUG
 	wprintf(L"All done.\n==============================================\n");
 #endif
