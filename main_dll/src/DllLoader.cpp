@@ -24,7 +24,7 @@ void initLibrary() {
 		AllocConsole();
 	freopen_s(&stream, "CONOUT$", "w+", stdout);
 
-	printf("Fixing library import..\n");
+	dprintf("Fixing library import..\n");
 #endif
 	wchar_t * szTargetDll = new wchar_t[MAX_PATH];
 	wchar_t * szThisDllPath = new wchar_t[MAX_PATH];
@@ -40,9 +40,8 @@ void initLibrary() {
 	if (!hDll) {
 		wchar_t * szErrorMsg = new wchar_t[MAX_PATH];
 		wsprintf(szErrorMsg, L"Failed to load dll:\n%s", szTargetDll);
-#ifdef _DEBUG
-		wprintf(L"%s\n==============================================\n", szErrorMsg);
-#else
+		dwprintf(L"%s\n==============================================\n", szErrorMsg);
+#ifndef _DEBUG
 		MessageBox(nullptr, szErrorMsg, L"DLL ERROR", MB_ICONERROR);
 #endif
 		delete(szErrorMsg);
@@ -59,9 +58,7 @@ void initLibrary() {
 		i++;
 	}
 
-#ifdef _DEBUG
-	wprintf(L"Fix import for %s..\n", szDllName);
-#endif
+	dwprintf(L"Fix import for %s..\n", szDllName);
 
 #pragma region Restore API
 #ifdef __EXP_VERSION
@@ -105,6 +102,14 @@ void initLibrary() {
 		fixAPI("LpkUseGDIWidthCache", uAddr(API_EXPORT::LpkUseGDIWidthCache));
 		fixAPI("ftsWordBreak", uAddr(API_EXPORT::ftsWordBreak));
 	}
+#endif
+
+#ifdef __EXP_MSIMG32
+	fixAPI("AlphaBlend", uAddr(API_EXPORT::AlphaBlend));
+	fixAPI("DllInitialize", uAddr(API_EXPORT::DllInitialize));
+	fixAPI("GradientFill", uAddr(API_EXPORT::GradientFill));
+	fixAPI("TransparentBlt", uAddr(API_EXPORT::TransparentBlt));
+	fixAPI("vSetDdrawflag", uAddr(API_EXPORT::vSetDdrawflag));
 #endif
 
 #ifdef __EXP_WINMM
@@ -307,9 +312,7 @@ void initLibrary() {
 	delete(szThisDllPath);
 	delete(szTargetDll);
 
-#ifdef _DEBUG
-	wprintf(L"Call to do_patch ..\n");
-#endif
+	dwprintf(L"Call to do_patch ..\n");
 	
 #ifdef __XP_PATCH_IN_THREAD
 	HMODULE hBase = GetModuleHandle(nullptr);
@@ -325,9 +328,7 @@ void initLibrary() {
 	do_patch(GetModuleHandle(nullptr));
 #endif
 
-#ifdef _DEBUG
-	wprintf(L"All done.\n==============================================\n");
-#endif
+	dwprintf(L"All done.\n==============================================\n");
 }
 
 void exitLibrary() {
@@ -374,12 +375,10 @@ void fixAPI(LPCSTR lpProcName, uAddr fnEntry)
 #endif
 		VirtualProtect(reinterpret_cast<void *>(fnEntry), SHELL_LENGTH, oldProtect, &oldProtect);
 	}
-#ifdef _DEBUG
 	else
 	{
-		printf("Couldn't find export function %s: fnDest is null.\n", lpProcName);
+		dprintf("Couldn't find export function %s: fnDest is null.\n", lpProcName);
 	}
-#endif
 }
 
 #pragma region API Export
@@ -404,6 +403,7 @@ namespace API_EXPORT {
 #endif
 
 #ifdef __EXP_LPK
+	dll_export LpkDllInitialize(void) { Sleep(19); };
 	dll_export LpkDrawTextEx(void) { Sleep(20); }
 	var_export VOID(*LpkEditControl[14])() = { 0 };
 	dll_export LpkExtTextOut(void) { Sleep(22); }
@@ -414,7 +414,14 @@ namespace API_EXPORT {
 	dll_export LpkTabbedTextOut(void) { Sleep(27); }
 	dll_export LpkUseGDIWidthCache(void) { Sleep(28); }
 	dll_export ftsWordBreak(void) { Sleep(29); }
-	dll_export LpkDllInitialize(void) { Sleep(30); };
+#endif
+
+#ifdef __EXP_MSIMG32
+	dll_export AlphaBlend(void) { Sleep(300); };
+	dll_export DllInitialize(void) { Sleep(301); };
+	dll_export GradientFill(void) { Sleep(302); };
+	dll_export TransparentBlt(void) { Sleep(303); };
+	dll_export vSetDdrawflag(void) { Sleep(304); };
 #endif
 
 #ifdef __EXP_WINMM

@@ -28,8 +28,9 @@ namespace SnR_Engine {
 		SnR_Engine(uAddr baseAddr, uint bufSize);
 		~SnR_Engine();
 
-		uint SnR_Engine::calcRuleSize(ubyte rule[]);
+		uint calcRuleSize(ubyte rule[]);
 		uint doSearchAndReplace(ubyte rule[], ubyte replacement[]);
+		bool doSearchAndReplaceOnce(ubyte rule[], ubyte replacement[]);
 		void doReplace(ubyte *src, ubyte replacement[]);
 		bool checkRule(ubyte *src, ubyte rule[]);
 		uAddr findNext(uAddr offset, ubyte rule[]);

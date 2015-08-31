@@ -52,6 +52,14 @@ namespace API_EXPORT
 	dll_export ftsWordBreak(void);
 #endif
 
+#ifdef __EXP_MSIMG32
+	dll_export AlphaBlend(void);
+	dll_export DllInitialize(void);
+	dll_export GradientFill(void);
+	dll_export TransparentBlt(void);
+	dll_export vSetDdrawflag(void);
+#endif
+
 #ifdef __EXP_WINMM
 	#ifdef PlaySound
 		#ifndef __BAK__PlaySound

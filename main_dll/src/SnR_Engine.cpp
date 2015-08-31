@@ -57,9 +57,7 @@ namespace SnR_Engine {
 				return rSize;
 
 			default:
-#ifdef _DEBUG
-				printf("Unexpected char: 0x%02x\n", *(lpRule - 1));
-#endif
+				dprintf("Unexpected char: 0x%02x\n", *(lpRule - 1));
 				assert(true);
 				return 0;
 			}
@@ -78,15 +76,13 @@ namespace SnR_Engine {
 		ubyte *src = reinterpret_cast<ubyte *>(baseAddr);
 		ubyte *eof = src + dataSize - ruleSize;
 		src += offset;
-#ifdef _DEBUG
 		printf("RuleSize: %d\n", ruleSize);
 #ifdef _WIN64
-		printf("Search range[size: %d]: %016llx ~ %016llx\n",
+		dprintf("Search range[size: %d]: %016llx ~ %016llx\n",
 			dataSize - ruleSize, baseAddr, uAddr(eof));
 #else
-		printf("Search range[size: %d]: %08x ~ %08x\n",
+		dprintf("Search range[size: %d]: %08x ~ %08x\n",
 			dataSize - ruleSize, baseAddr, uint(eof));
-#endif
 #endif
 		while (src < eof)
 		{
@@ -113,15 +109,13 @@ namespace SnR_Engine {
 		ubyte *src = reinterpret_cast<ubyte *>(baseAddr);
 		ubyte *eof = src + offset;
 
-#ifdef _DEBUG
-		printf("RuleSize: %d\n", ruleSize);
+		dprintf("RuleSize: %d\n", ruleSize);
 #ifdef _WIN64
-		printf("Search range[size: %d]: %016llx ~ %016llx\n",
+		dprintf("Search range[size: %d]: %016llx ~ %016llx\n",
 			dataSize - ruleSize, baseAddr, uAddr(eof));
 #else
-		printf("Search range[size: %d]: %08x ~ %08x\n",
+		dprintf("Search range[size: %d]: %08x ~ %08x\n",
 			dataSize - ruleSize, baseAddr, uint(eof));
-#endif
 #endif
 		while (src < eof)
 		{
@@ -151,15 +145,13 @@ namespace SnR_Engine {
 		uint count = 0;
 		ubyte *src = reinterpret_cast<ubyte *>(baseAddr);
 		ubyte *eof = src + dataSize - max(ruleSize, replSize);
-#ifdef _DEBUG
-		printf("RuleSize: %d\t\tReplSize: %d\n", ruleSize, replSize);
+		dprintf("RuleSize: %d\t\tReplSize: %d\n", ruleSize, replSize);
 #ifdef _WIN64
-		printf("Search range[size: %d]: %016llx ~ %016llx\n",
+		dprintf("Search range[size: %d]: %016llx ~ %016llx\n",
 			dataSize - max(ruleSize, replSize), baseAddr, uAddr(eof));
 #else
-		printf("Search range[size: %d]: %08x ~ %08x\n",
+		dprintf("Search range[size: %d]: %08x ~ %08x\n",
 			dataSize - max(ruleSize, replSize), baseAddr, uint(eof));
-#endif
 #endif
 		while (src < eof)
 		{
@@ -175,14 +167,48 @@ namespace SnR_Engine {
 		return count;
 	}
 
+	bool SnR_Engine::doSearchAndReplaceOnce(ubyte rule[], ubyte replacement[])
+	{
+		uint ruleSize = calcRuleSize(rule);
+		uint replSize = calcRuleSize(replacement);
+
+		assert(ruleSize);
+		assert(replSize);
+
+		if (!ruleSize || !replSize) {
+			return 0;
+		}
+
+		ubyte *src = reinterpret_cast<ubyte *>(baseAddr);
+		ubyte *eof = src + dataSize - max(ruleSize, replSize);
+		dprintf("RuleSize: %d\t\tReplSize: %d\n", ruleSize, replSize);
+#ifdef _WIN64
+		dprintf("Search range[size: %d]: %016llx ~ %016llx\n",
+			dataSize - max(ruleSize, replSize), baseAddr, uAddr(eof));
+#else
+		dprintf("Search range[size: %d]: %08x ~ %08x\n",
+			dataSize - max(ruleSize, replSize), baseAddr, uint(eof));
+#endif
+		while (src < eof)
+		{
+			if (checkRule(src, rule))
+			{
+				doReplace(src, replacement);
+				return true;
+			}
+
+			src++;
+		}
+
+		return false;
+	}
+
 	void SnR_Engine::doReplace(ubyte *src, ubyte replacement[])
 	{
-#ifdef _DEBUG
 #ifdef _WIN64
-		printf("Apply Patch at %016llx\n", reinterpret_cast<uAddr>(src));
+		dprintf("Apply Patch at %016llx\n", reinterpret_cast<uAddr>(src));
 #else
-		printf("Apply Patch at %08x\n", reinterpret_cast<uAddr>(src));
-#endif
+		dprintf("Apply Patch at %08x\n", reinterpret_cast<uAddr>(src));
 #endif
 
 		ubyte *lpReplc = replacement;
@@ -210,9 +236,7 @@ namespace SnR_Engine {
 				return;
 
 			default:
-#ifdef _DEBUG
-				printf("Unexpected char: 0x%02x\n", *(lpReplc - 1));
-#endif
+				dprintf("Unexpected char: 0x%02x\n", *(lpReplc - 1));
 				assert(true);
 				return;
 			}
@@ -245,9 +269,7 @@ namespace SnR_Engine {
 				return true;
 
 			default:
-#ifdef _DEBUG
-				printf("Unexpected char: 0x%02x\n", *(lpRule - 1));
-#endif
+				dprintf("Unexpected char: 0x%02x\n", *(lpRule - 1));
 				assert(true);
 				return false;
 			}
