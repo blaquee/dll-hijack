@@ -79,6 +79,8 @@ void initLibrary() {
 		fixAPI("VerLanguageNameW", uAddr(API_EXPORT::VerLanguageNameW));
 		fixAPI("VerQueryValueA", uAddr(API_EXPORT::VerQueryValueA));
 		fixAPI("VerQueryValueW", uAddr(API_EXPORT::VerQueryValueW));
+		fixAPI("VerQueryValueIndexA", uAddr(API_EXPORT::VerQueryValueIndexA));
+		fixAPI("VerQueryValueIndexW", uAddr(API_EXPORT::VerQueryValueIndexW));
 	}
 #endif
 
@@ -400,6 +402,8 @@ namespace API_EXPORT {
 	dll_export VerLanguageNameW(void) { Sleep(13); }
 	dll_export VerQueryValueA(void) { Sleep(14); }
 	dll_export VerQueryValueW(void) { Sleep(15); }
+	dll_export VerQueryValueIndexA(void) { Sleep(16); }
+	dll_export VerQueryValueIndexW(void) { Sleep(17); };
 #endif
 
 #ifdef __EXP_LPK

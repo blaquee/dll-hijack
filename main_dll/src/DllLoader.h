@@ -36,6 +36,8 @@ namespace API_EXPORT
 	dll_export VerLanguageNameW(void);
 	dll_export VerQueryValueA(void);
 	dll_export VerQueryValueW(void);
+	dll_export VerQueryValueIndexA(void);
+	dll_export VerQueryValueIndexW(void);
 #endif
 
 #ifdef __EXP_LPK

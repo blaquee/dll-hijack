@@ -11,8 +11,9 @@
 #define __XP_PATCH_IN_THREAD
 #endif
 
-#define __EXP_MSIMG32
+// #define __EXP_MSIMG32
 // #define __EXP_WINMM
+
 /*
 	__XP_PATCH_IN_THREAD: In Windows XP, DLL will try to call do_patch
 	within CreateThread instead. This can prevent some random unknown crash.
