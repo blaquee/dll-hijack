@@ -88,6 +88,7 @@
     <OutDir>$(SolutionDir)bin\$(PlatformTarget)\$(Configuration)\</OutDir>
     <IntDir>..\bin\$(PlatformTarget)\$(Configuration)\$(ProjectName)\</IntDir>
     <TargetName>version</TargetName>
+    <LibraryPath>$(LibraryPath);$(ProjectDir)\src</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -141,6 +142,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\DetourXS\detourxs.cpp" />
     <ClCompile Include="src\DoPatch.cpp" />
     <ClCompile Include="src\PatchUtil.cpp" />
     <ClCompile Include="src\SnR_Engine.cpp" />
@@ -148,6 +150,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Common.h" />
+    <ClInclude Include="src\DetourXS\detourxs.h" />
     <ClInclude Include="src\DoPatch.h" />
     <ClInclude Include="src\PatchUtil.h" />
     <ClInclude Include="src\SnR_Engine.h" />

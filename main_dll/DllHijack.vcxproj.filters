@@ -13,6 +13,9 @@
     <ClCompile Include="src\SnR_Engine.cpp">
       <Filter>Source File</Filter>
     </ClCompile>
+    <ClCompile Include="src\DetourXS\detourxs.cpp">
+      <Filter>DetourXS</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Common.h">
@@ -33,6 +36,9 @@
     <ClInclude Include="src\_EXP_Control.h">
       <Filter>Header File</Filter>
     </ClInclude>
+    <ClInclude Include="src\DetourXS\detourxs.h">
+      <Filter>DetourXS</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Header File">
@@ -42,6 +48,9 @@
     <Filter Include="Source File">
       <UniqueIdentifier>{ff255197-bd4e-4cda-b58a-dbd3ee162358}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="DetourXS">
+      <UniqueIdentifier>{ef285df1-7341-41a2-98c8-0673c18bc303}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

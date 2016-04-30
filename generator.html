@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>dup2 to SnR_Engine</title>
+
+<style type="text/css">
+textarea {
+	width: 100%;
+	display: block;
+}
+.btns {
+	text-align: center;
+}
+
+main {
+	width: 80%;
+	margin: 0 auto;
+}
+</style>
+</head>
+<body>
+	<main>
+		<textarea id="src" rows=3></textarea>
+		<p class="btns">
+			<button id="convert">Convert</button>
+		</p>
+		<textarea id="dest" rows="30"></textarea>
+	</main>
+
+	<script type="text/javascript">
+		var $convert = document.getElementById('convert');
+		var $dest = document.getElementById('dest');
+		var TYPE_STR = ['Search', 'Skip'];
+		var TYPE_SEARCH = 0;
+		var TYPE_SKIP = 1;
+		var TYPE_EOF = 0xff;
+		var sigCount = 1;
+		$convert.onclick = function () {
+			var v = document.getElementById('src').value;
+			var struct = [{
+				type: TYPE_SEARCH,
+				count: 0,
+				content: []
+			}];
+			v.replace(/[^\d?A-F]/ig, '').replace(/(^\?+|\?+$)/g, '').replace(/../g, function (byte) {
+				var item = struct.pop();
+				var innerType = TYPE_SEARCH;
+				if (byte == '??') {
+					innerType = TYPE_SKIP;
+				}
+				if (innerType != item.type) {
+					struct.push(item);
+					item = {
+						type: innerType,
+						count: 0,
+						content: []
+					};
+				}
+
+				if (innerType == TYPE_SEARCH) {
+					item.content.push(byte);
+				}
+
+				item.count ++;
+				struct.push(item);
+			});
+
+			if (struct[0].count === 0)
+				struct.shift();
+
+			$dest.value += 'ubyte patchSig' + sigCount + '[] = {\n';
+			struct.map(function (item) {
+				$dest.value += '\tSearchMode_' + TYPE_STR[item.type] + ', ' + item.count + ', \n';
+				if (item.content.length > 0) {
+					$dest.value += '\t' + item.content.map(function (byte) {
+						return '0x' + byte;
+					}).join(', ') + ',\n';
+				}
+			});
+			$dest.value += '\tSearchMode_EOF\n';
+			$dest.value += '};\n\n';
+
+			sigCount ++;
+		};
+	</script>
+</body>
+</html>

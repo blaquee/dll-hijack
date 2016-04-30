@@ -23,6 +23,7 @@ typedef unsigned __int64 uAddr;
 #else
 typedef unsigned __int32 uAddr;
 #endif
+#define uAddr_defined
 
 typedef u8  ubyte;
 typedef u16 ushort;
