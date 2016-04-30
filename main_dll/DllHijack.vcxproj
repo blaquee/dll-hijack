@@ -73,16 +73,19 @@
     <OutDir>$(SolutionDir)bin\$(PlatformTarget)\$(Configuration)\</OutDir>
     <IntDir>..\bin\$(PlatformTarget)\$(Configuration)\$(ProjectName)\</IntDir>
     <TargetName>version</TargetName>
+    <LibraryPath>$(LibraryPath);$(ProjectDir)\src</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>$(SolutionDir)bin\$(PlatformTarget)\$(Configuration)\</OutDir>
     <IntDir>..\bin\$(PlatformTarget)\$(Configuration)\$(ProjectName)\</IntDir>
     <TargetName>version</TargetName>
+    <LibraryPath>$(LibraryPath);$(ProjectDir)\src</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <OutDir>$(SolutionDir)bin\$(PlatformTarget)\$(Configuration)\</OutDir>
     <IntDir>..\bin\$(PlatformTarget)\$(Configuration)\$(ProjectName)\</IntDir>
     <TargetName>version</TargetName>
+    <LibraryPath>$(LibraryPath);$(ProjectDir)\src</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <OutDir>$(SolutionDir)bin\$(PlatformTarget)\$(Configuration)\</OutDir>
