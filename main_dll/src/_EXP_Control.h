@@ -3,6 +3,9 @@
 // Export the one you want, 
 // You can also export more if you wish.
 
+// Use __NO_EXP if your dll is renamed or loaded via other method.
+// #define __NO_EXP
+
 #define __EXP_VERSION
 #ifdef _WIN64
 // Windows x64 Options
@@ -28,4 +31,9 @@
 
 	Exports lpk.dll, winmm.dll and version.dll functions.
 	You _can_ export more than one.
+
+
+	Define:
+	__NO_EXP: No api fix.
+	__ENABLE_CONSOLE: Always open a console.
 */

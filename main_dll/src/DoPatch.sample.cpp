@@ -2,22 +2,19 @@
 #include "DoPatch.h"
 #include "PatchUtil.h"
 #include "SnR_Engine.h"
+#include "DetourXS/detourxs.h"
 
 uAddr uBase;
 
 void do_patch(HMODULE base) {
-	printf("Let's patch!\n");
+	dprintf("Let's patch!\n");
 
 	wchar_t szExePath[MAX_PATH];
 	GetModuleFileName(nullptr, szExePath, MAX_PATH);
-#ifdef _DEBUG
-	wprintf(L"szExePath: %s\n", szExePath);
-#endif
-	if (0 != wcscmp(wcsrchr(szExePath, L'\\'), L"\\test_dll.exe")) {
+	dwprintf(L"szExePath: %s\n", szExePath);
+	if (0 != wcscmp(wcsrchr(szExePath, L'\\'), L"\\rtest_dll.exe")) {
 		// Not my_target
-#ifdef _DEBUG
-		wprintf(L"Is not my target: %s\n", wcsrchr(szExePath, L'\\') + 1);
-#endif
+		dwprintf(L"Is not my target: %s\n", wcsrchr(szExePath, L'\\') + 1);
 		return;
 	}
 
@@ -71,9 +68,7 @@ void do_patch(HMODULE base) {
 
 	if (engine->doSearchAndReplace(patchSig1, patchData1) == 0)
 	{
-#ifdef _DEBUG
-		printf("Didn't patch anything.\n");
-#endif
+		dprintf("Didn't patch anything.\n");
 	}
 
 	ubyte patchSig2[] = {
@@ -84,7 +79,7 @@ void do_patch(HMODULE base) {
 	};
 
 	// Should trigger error
-	engine->doSearchAndReplace(patchSig2, patchData2);
+	// engine->doSearchAndReplace(patchSig2, patchData2);
 
 	// Continue patching / clean up ..
 }

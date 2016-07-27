@@ -10,7 +10,7 @@
 
 int main()
 {
-	wchar_t *szPath = new wchar_t[MAX_PATH];
+	wchar_t szPath[MAX_PATH] = { 0 };
 	GetModuleFileName(NULL, szPath, MAX_PATH);
 	int size = GetFileVersionInfoSize(szPath, NULL);
 	byte *sBuffer = new byte[size];
@@ -29,9 +29,8 @@ int main()
 	DWORD dwSecondRight = HIWORD(dwFileVersionLS);
 	DWORD dwRightMost = LOWORD(dwFileVersionLS);
 	wprintf(L"File: %s\nVersion: %d.%d.%d.%d\n", szPath, dwLeftMost, dwSecondLeft, dwSecondRight, dwRightMost);
-	free(szPath);
-	free(sBuffer);
 
+	delete[] sBuffer;
 	system("pause");
 	return 0;
 }

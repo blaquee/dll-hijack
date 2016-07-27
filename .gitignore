@@ -6,3 +6,4 @@ bin
 main_dll/src/DoPatch.cpp
 *.aps
 *.VC.opendb
+*.VC.db

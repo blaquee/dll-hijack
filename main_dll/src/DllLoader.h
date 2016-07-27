@@ -10,13 +10,15 @@
 
 BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved);
 
-void initLibrary();
-void exitLibrary();
+void FixLibraryImport();
+void ExitLibrary();
 
 HINSTANCE hInstance;
 HMODULE hDll;
 
-void fixAPI(LPCSTR lpProcName, uAddr a);
+void FixSingleApi(LPCSTR lpProcName, uAddr a);
+void StartPatch();
+void OpenConsole();
 
 namespace API_EXPORT
 {
